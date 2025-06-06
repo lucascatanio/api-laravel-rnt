@@ -1,66 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API Laravel - Gestão de Usuários
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST desenvolvida em **Laravel**, responsável pela gestão de usuários, incluindo funcionalidades de cadastro, listagem, atualização e remoção, com validações robustas e tratamento de erros customizados.
 
-## About Laravel
+> 🚀 Projeto em desenvolvimento — Release: `v0.1.0`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📑 Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   ✅ Listar todos os usuários
+-   ✅ Visualizar um usuário específico por ID
+-   ✅ Cadastrar novo usuário com validações:
+    -   Nome obrigatório
+    -   E-mail obrigatório, válido e único
+    -   Senha obrigatória (mínimo 6 caracteres)
+-   ✅ Atualizar dados de um usuário (nome, email e senha)
+    -   Com validação de unicidade de e-mail (não permite duplicados)
+    -   Senha criptografada automaticamente
+-   ✅ Excluir usuário
+-   ✅ Validação de erros estruturada com retornos em JSON
+-   ✅ Tratamento global de erros no `Handler.php` personalizado
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🔗 Rotas da API
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+| Método | Rota                 | Descrição                |
+| ------ | -------------------- | ------------------------ |
+| GET    | `/api/usuarios`      | Listar todos os usuários |
+| GET    | `/api/usuarios/{id}` | Buscar usuário por ID    |
+| POST   | `/api/usuarios`      | Criar novo usuário       |
+| PUT    | `/api/usuarios/{id}` | Atualizar usuário por ID |
+| DELETE | `/api/usuarios/{id}` | Deletar usuário por ID   |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🔐 Validações
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   Campos obrigatórios em cadastro:
+    -   `nome` (string)
+    -   `email` (email, único)
+    -   `senha` (mínimo 6 caracteres)
+-   No update (`PUT`):
+    -   Permite atualizar parcialmente (`nome`, `email` ou `senha`)
+    -   Verifica se o email não está em uso por outro usuário
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## ❌ Tratamento de erros
 
-## Contributing
+-   ✅ Erros de validação retornam `422 Unprocessable Entity` com detalhes dos campos inválidos.
+-   ✅ Se usuário não encontrado: retorna `404 Not Found` com mensagem clara.
+-   ✅ Se tentativa de acesso não autorizado (se aplicável): retorna `401 Unauthorized`.
+-   ✅ Erros internos: `500 Internal Server Error` com detalhes no ambiente de desenvolvimento.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🏗️ Tecnologias Utilizadas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   PHP `^8.1`
+-   Laravel `^10`
+-   Banco de Dados: PostgreSQL, MySQL ou SQLite (configurável)
+-   Composer
+-   Git e GitHub
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🚀 Como rodar o projeto localmente
 
-## License
+1️⃣ Clone o repositório:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+```
+
+2️⃣ Instale as dependências:
+
+```bash
+composer install
+```
+
+3️⃣ Configure o `.env`:
+
+```bash
+cp .env.example .env
+```
+
+> Configure o banco de dados e outras variáveis no `.env`
+
+4️⃣ Gere a chave do projeto:
+
+```bash
+php artisan key:generate
+```
+
+5️⃣ Execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+6️⃣ Rode o servidor local:
+
+```bash
+php artisan serve
+```
+
+A API estará disponível em:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## 🐘 Banco de Dados
+
+Por padrão, utiliza tabela:
+
+```
+usuarios
+```
+
+| Campo      | Tipo      | Observação        |
+| ---------- | --------- | ----------------- |
+| id         | bigint    | Primary Key       |
+| nome       | string    | Obrigatório       |
+| email      | string    | Obrigatório/Único |
+| senha      | string    | Criptografada     |
+| created_at | timestamp | Laravel padrão    |
+| updated_at | timestamp | Laravel padrão    |
+
+---
+
+## 🔥 Próximos passos (Roadmap)
+
+-   [ ] Implementar autenticação JWT
+-   [ ] Documentação da API
+
+---
+
+## ✨ Desenvolvido por:
+
+**Lucas Catanio** — [@lucascatanio](https://github.com/lucascatanio)
